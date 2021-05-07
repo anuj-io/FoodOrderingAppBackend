@@ -175,14 +175,14 @@ public class CustomerService {
             throw new UpdateCustomerException("UCR-001", "Weak password!");
         }
 
-        //Encrypting the oldpassword enter by user.
+        //Encrypting the old password enter by user.
         String encryptedOldPassword = passwordCryptographyProvider.encrypt(oldPassword, customerEntity.getSalt());
 
         //Checking the oldPassword is correct as stored in the DB
         if (encryptedOldPassword.equals(customerEntity.getPassword())) {
             CustomerEntity tobeUpdatedCustomerEntity = customerDao.getCustomerByUuid(customerEntity.getUuid());
 
-            //Encyprting newPassword to store in the DB
+            // Encrypting newPassword to store in the DB
             String[] encryptedPassword = passwordCryptographyProvider.encrypt(newPassword);
             tobeUpdatedCustomerEntity.setSalt(encryptedPassword[0]);
             tobeUpdatedCustomerEntity.setPassword(encryptedPassword[1]);
