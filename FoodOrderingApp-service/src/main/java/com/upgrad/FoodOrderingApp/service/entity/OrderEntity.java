@@ -10,6 +10,7 @@ import java.util.Date;
 @Entity
 @Table(name = "orders")
 @NamedQueries({
+        @NamedQuery(name = "ordersByAddress", query = "select q from OrderEntity q where q.address = :address"),
         @NamedQuery(name = "ordersByCustomer", query = "select q from OrderEntity q where q.customer = :customer order by q.date desc "),
         @NamedQuery(name = "ordersByRestaurant", query = "select q from OrderEntity q where q.restaurant = :restaurant"),
 })
@@ -47,15 +48,34 @@ public class OrderEntity implements Serializable {
     @NotNull
     private RestaurantEntity restaurant;
 
+    @ManyToOne
+    @JoinColumn(name = "coupon_id")
+    @NotNull
+    private CouponEntity coupon;
+
+    @OneToOne
+    @JoinColumn(name = "payment_id")
+    @NotNull
+    private PaymentEntity payment;
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    @NotNull
+    private AddressEntity address;
+
+
     public OrderEntity() {}
 
-    public OrderEntity(@NotNull @Size(max = 200) String uuid, @NotNull Double bill, @NotNull Double discount, @NotNull Date date, @NotNull CustomerEntity customer, RestaurantEntity restaurant) {
+    public OrderEntity(@NotNull @Size(max = 200) String uuid, @NotNull Double bill, @NotNull CouponEntity coupon, @NotNull Double discount, @NotNull Date date, @NotNull PaymentEntity payment, @NotNull CustomerEntity customer, @NotNull AddressEntity address, RestaurantEntity restaurant) {
         this.uuid = uuid;
         this.bill = new BigDecimal(bill);
         this.discount = new BigDecimal(discount);
         this.date = date;
         this.customer = customer;
         this.restaurant = restaurant;
+        this.coupon = coupon;
+        this.payment = payment;
+        this.address = address;
     }
 
     public Integer getId() {
@@ -97,6 +117,7 @@ public class OrderEntity implements Serializable {
     public void setDate(Date date) {
         this.date = date;
     }
+
     public CustomerEntity getCustomer() {
         return customer;
     }
@@ -105,12 +126,35 @@ public class OrderEntity implements Serializable {
         this.customer = customer;
     }
 
-
     public RestaurantEntity getRestaurant() {
         return restaurant;
     }
 
     public void setRestaurant(RestaurantEntity restaurant) {
         this.restaurant = restaurant;
+    }
+
+    public CouponEntity getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(CouponEntity coupon) {
+        this.coupon = coupon;
+    }
+
+    public PaymentEntity getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentEntity payment) {
+        this.payment = payment;
+    }
+
+    public AddressEntity getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressEntity address) {
+        this.address = address;
     }
 }

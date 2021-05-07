@@ -10,7 +10,8 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "address", uniqueConstraints = {@UniqueConstraint(columnNames = {"uuid"})})
 @NamedQueries({
-        @NamedQuery(name = "getAddressById", query = "select a from AddressEntity a where a.uuid = :uuid")
+        @NamedQuery(name = "getAddressById", query = "select a from AddressEntity a where a.uuid = :uuid"),
+        @NamedQuery(name = "getAllAddresses", query = "select q from AddressEntity q"),
 })
 public class AddressEntity {
 
@@ -47,6 +48,32 @@ public class AddressEntity {
 
     @Column(name = "active")
     private Integer active;
+
+    @ManyToOne
+    @JoinTable(name = "customer_address", joinColumns = @JoinColumn(name = "address_id"),
+            inverseJoinColumns = @JoinColumn(name = "customer_id"))
+    private CustomerEntity customer;
+
+    public AddressEntity() {
+    }
+
+    public AddressEntity(String uuid, String flatNo, String locality, String city, String pincode, StateEntity stateEntity) {
+        this.uuid = uuid;
+        this.flatBuilNo = flatNo;
+        this.locality = locality;
+        this.city = city;
+        this.pincode = pincode;
+        this.stateEntity = stateEntity;
+        this.active = 1;
+    }
+
+    public CustomerEntity getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerEntity customerEntity) {
+        this.customer = customerEntity;
+    }
 
     public void setId(Integer id) {
         this.id = id;
@@ -112,4 +139,7 @@ public class AddressEntity {
         return active;
     }
 
+    public StateEntity getState() {
+        return stateEntity;
+    }
 }
