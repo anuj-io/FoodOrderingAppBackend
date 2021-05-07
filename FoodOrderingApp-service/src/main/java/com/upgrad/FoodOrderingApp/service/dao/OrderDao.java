@@ -31,6 +31,7 @@ public class OrderDao {
             return null;
         }
     }
+
     public List<OrderEntity> getOrdersByAddress(AddressEntity addressEntity) {
         try {
             return entityManager.createNamedQuery("ordersByAddress", OrderEntity.class).setParameter("address", addressEntity).getResultList();

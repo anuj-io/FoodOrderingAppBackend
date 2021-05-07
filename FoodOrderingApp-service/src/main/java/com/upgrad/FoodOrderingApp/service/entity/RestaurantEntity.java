@@ -47,6 +47,7 @@ public class RestaurantEntity {
     @NotNull
     private Integer customersRated;
 
+
     @ManyToOne
     @JoinColumn(name = "address_id")
     @NotNull
