@@ -39,7 +39,8 @@ public class ItemController {
                 ItemList itemList = new ItemList()
                         .id(UUID.fromString(itemEntity.getUuid()))
                         .itemName(itemEntity.getItemName())
-                        .price(itemEntity.getPrice());
+                        .price(itemEntity.getPrice())
+                        .itemType(ItemList.ItemTypeEnum.fromValue(itemEntity.getType().getValue()));
                 itemListResponse.add(itemList);
                 count += 1;
             } else {
