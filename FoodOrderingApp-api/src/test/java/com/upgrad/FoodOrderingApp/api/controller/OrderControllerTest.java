@@ -1,10 +1,16 @@
-/*
+
 package com.upgrad.FoodOrderingApp.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.upgrad.FoodOrderingApp.api.model.CustomerOrderResponse;
 import com.upgrad.FoodOrderingApp.api.model.ItemQuantity;
 import com.upgrad.FoodOrderingApp.api.model.SaveOrderRequest;
+import com.upgrad.FoodOrderingApp.service.businness.AddressService;
+import com.upgrad.FoodOrderingApp.service.businness.CustomerService;
+import com.upgrad.FoodOrderingApp.service.businness.OrderService;
+import com.upgrad.FoodOrderingApp.service.businness.PaymentService;
+import com.upgrad.FoodOrderingApp.service.entity.CustomerEntity;
+import com.upgrad.FoodOrderingApp.service.entity.PaymentEntity;
 import com.upgrad.FoodOrderingApp.service.exception.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,11 +54,11 @@ public class OrderControllerTest {
     @MockBean
     private AddressService mockAddressService;
 
-    @MockBean
-    private RestaurantService mockRestaurantService;
+ //   @MockBean
+ //   private RestaurantService mockRestaurantService;
 
-    @MockBean
-    private ItemService mockItemService;
+ //   @MockBean
+ //   private ItemService mockItemService;
 
     // ------------------------------------------ POST /order ------------------------------------------
 
@@ -610,4 +616,3 @@ public class OrderControllerTest {
 
 }
 
- */
