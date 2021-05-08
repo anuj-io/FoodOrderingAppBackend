@@ -1,5 +1,4 @@
 package com.upgrad.FoodOrderingApp.service.businness;
-
 import com.upgrad.FoodOrderingApp.service.dao.CouponDao;
 import com.upgrad.FoodOrderingApp.service.dao.CustomerDao;
 import com.upgrad.FoodOrderingApp.service.entity.CouponEntity;
@@ -9,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.util.List;
-
-
+import com.upgrad.FoodOrderingApp.service.dao.OrderDao;
+import com.upgrad.FoodOrderingApp.service.dao.OrderItemDao;
+import com.upgrad.FoodOrderingApp.service.entity.OrderEntity;
+import com.upgrad.FoodOrderingApp.service.entity.OrderItemEntity;
 
 @Service
 public class OrderService {
@@ -25,6 +25,11 @@ public class OrderService {
     @Autowired
     CustomerDao customerDao; //Handles all data related to the CustomerEntity
 
+    @Autowired
+    private OrderDao orderDao;
+
+    @Autowired
+    private OrderItemDao orderItemDao;
 
     /* This method is to get Coupon By CouponName.Takes the couponName  and returns the Coupon Entity.
     If error throws exception with error code and error message.
@@ -56,5 +61,17 @@ public class OrderService {
         return couponEntity;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public OrderEntity saveOrder(OrderEntity orderEntity) {
+        return orderDao.createOrder(orderEntity);
+    }
 
+    @Transactional(propagation = Propagation.REQUIRED)
+    public OrderItemEntity saveOrderItem(OrderItemEntity orderItemEntity) {
+        return orderItemDao.createOrderItemEntity(orderItemEntity);
+    }
+
+    public List<OrderEntity> getOrdersByCustomers(String customerUUID) {
+        return orderDao.getOrdersByCustomers(customerDao.getCustomerByUuid(customerUUID));
+    }
 }

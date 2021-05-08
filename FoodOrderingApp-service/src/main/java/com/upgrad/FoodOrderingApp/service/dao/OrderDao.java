@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.List;
+import com.upgrad.FoodOrderingApp.service.entity.AddressEntity;
 
 @Repository
 public class OrderDao {
@@ -29,5 +30,18 @@ public class OrderDao {
         } catch (NoResultException nre) {
             return null;
         }
+    }
+
+    public List<OrderEntity> getOrdersByAddress(AddressEntity addressEntity) {
+        try {
+            return entityManager.createNamedQuery("ordersByAddress", OrderEntity.class).setParameter("address", addressEntity).getResultList();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
+    public OrderEntity createOrder(OrderEntity orderEntity) {
+        entityManager.persist(orderEntity);
+        return orderEntity;
     }
 }

@@ -47,6 +47,12 @@ public class RestaurantEntity {
     @NotNull
     private Integer customersRated;
 
+
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    @NotNull
+    private AddressEntity address;
+
     @ManyToMany
     @JoinTable(name = "restaurant_category", joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
@@ -128,4 +134,13 @@ public class RestaurantEntity {
     public void setNumberCustomersRated(Integer customersRated) {
         this.customersRated = customersRated;
     }
+
+    public AddressEntity getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressEntity address) {
+        this.address = address;
+    }
+
 }
