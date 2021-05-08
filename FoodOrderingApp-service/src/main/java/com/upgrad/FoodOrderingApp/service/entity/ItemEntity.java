@@ -103,4 +103,8 @@ public class ItemEntity implements Serializable {
     public void setType(ItemType type) {
         this.type = type;
     }
+
+    public String getitemName() {
+        return itemName;
+    }
 }

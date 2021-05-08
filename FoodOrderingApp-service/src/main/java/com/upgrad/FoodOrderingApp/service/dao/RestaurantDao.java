@@ -26,6 +26,19 @@ public class RestaurantDao {
             return null;
         }
     }
+    //To get the list of restaurant by name from db
+    public List<RestaurantEntity> restaurantsByName(String restaurantName) {
+        try {
+            String restaurantNameLow = "%"+restaurantName.toLowerCase()+"%"; // to make a check with lower
+            List<RestaurantEntity> restaurantEntities = entityManager.createNamedQuery("restaurantsByName", RestaurantEntity.class).setParameter("restaurant_name_low",restaurantNameLow).getResultList();
+            return restaurantEntities;
+        }catch (NoResultException nre){
+            return null;
+        }
+
+    }
+
+
     public RestaurantEntity updateRestaurantEntity(RestaurantEntity restaurantEntity) {
         return entityManager.merge(restaurantEntity);
     }
