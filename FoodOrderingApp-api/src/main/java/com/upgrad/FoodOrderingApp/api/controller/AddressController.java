@@ -31,6 +31,7 @@ public class AddressController {
     @Autowired
     UtilityProvider utilityProvider;
 
+    @Autowired
     CustomerService customerService;
 
     @Autowired
