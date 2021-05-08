@@ -12,6 +12,7 @@ import java.util.List;
         {
                 @NamedQuery(name = "getAllRestaurantsByRating", query = "select q from RestaurantEntity q order by q.customerRating desc"),
                 @NamedQuery(name = "restaurantByUUID", query = "select q from RestaurantEntity q where q.uuid = :uuid"),
+                @NamedQuery(name = "restaurantsByName",query = "SELECT r FROM  RestaurantEntity r WHERE LOWER(r.restaurantName) LIKE :restaurant_name_low")
         }
 )
 public class RestaurantEntity {
@@ -61,6 +62,8 @@ public class RestaurantEntity {
     @ManyToMany
     @JoinTable(name = "restaurant_item", joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
+
+    private AddressEntity address;
     private List<ItemEntity> items = new ArrayList<>();
 
     public List<ItemEntity> getItems() {
@@ -134,6 +137,7 @@ public class RestaurantEntity {
     public void setNumberCustomersRated(Integer customersRated) {
         this.customersRated = customersRated;
     }
+
 
     public AddressEntity getAddress() {
         return address;

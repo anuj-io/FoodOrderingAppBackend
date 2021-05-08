@@ -1,5 +1,6 @@
 package com.upgrad.FoodOrderingApp.service.businness;
 import com.upgrad.FoodOrderingApp.service.dao.CategoryDao;
+import com.upgrad.FoodOrderingApp.service.dao.RestaurantCategoryDao;
 import com.upgrad.FoodOrderingApp.service.dao.RestaurantDao;
 import com.upgrad.FoodOrderingApp.service.entity.CategoryEntity;
 import com.upgrad.FoodOrderingApp.service.entity.RestaurantEntity;
@@ -24,6 +25,8 @@ public class RestaurantService {
     @Autowired
     private CategoryDao categoryDao;
 
+    @Autowired
+    RestaurantCategoryDao restaurantCategoryDao; //Handles all data related to the RestaurantCategoryEntity
 
     public List<RestaurantEntity> restaurantsByRating() {
         return restaurantDao.restaurantsByRating();
@@ -60,6 +63,7 @@ public class RestaurantService {
         restaurantEntityList.sort(Comparator.comparing(RestaurantEntity::getRestaurantName));
         return restaurantEntityList;
     }
+
     public RestaurantEntity restaurantByUUID(String uuid) throws RestaurantNotFoundException {
         if (uuid.equals("")) {
             throw new RestaurantNotFoundException("RNF-002", "Restaurant id field should not be empty");
