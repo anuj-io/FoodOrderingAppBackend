@@ -5,13 +5,13 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import com.upgrad.FoodOrderingApp.service.common.ItemType;
 
 @Entity
 @Table(name = "item")
 @NamedQueries({
         @NamedQuery(name = "itemByUUID", query = "select q from ItemEntity q where q.uuid = :uuid")
 })
-
 public class ItemEntity implements Serializable {
 
     @Id
@@ -32,10 +32,20 @@ public class ItemEntity implements Serializable {
     @NotNull
     private Integer price;
 
+    @Column(name = "type")
+    @NotNull
+    @Size(max = 10)
+    private ItemType type;
+
     @ManyToMany
     @JoinTable(name = "category_item", joinColumns = @JoinColumn(name = "item_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id"))
     private List<CategoryEntity> categories = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(name = "restaurant_item", joinColumns = @JoinColumn(name = "item_id"),
+            inverseJoinColumns = @JoinColumn(name = "restaurant_id"))
+    private List<RestaurantEntity> restaurants = new ArrayList<>();
 
     public List<CategoryEntity> getCategories() {
         return categories;
@@ -43,6 +53,14 @@ public class ItemEntity implements Serializable {
 
     public void setCategories(List<CategoryEntity> categories) {
         this.categories = categories;
+    }
+
+    public List<RestaurantEntity> getRestaurants() {
+        return restaurants;
+    }
+
+    public void setRestaurants(List<RestaurantEntity> restaurants) {
+        this.restaurants = restaurants;
     }
 
     public Integer getId() {
@@ -75,5 +93,13 @@ public class ItemEntity implements Serializable {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public ItemType getType() {
+        return type;
+    }
+
+    public void setType(ItemType type) {
+        this.type = type;
     }
 }
