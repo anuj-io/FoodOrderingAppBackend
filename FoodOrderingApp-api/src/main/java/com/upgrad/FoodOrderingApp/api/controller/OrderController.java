@@ -108,6 +108,7 @@ public class OrderController {
         orderEntity.setCustomer(customerEntity);
         orderEntity.setDate(new Date());
         orderEntity.setBill(saveOrderRequest.getBill().doubleValue());
+        orderEntity.setDiscount(saveOrderRequest.getDiscount().doubleValue());
 
         OrderEntity savedOrder = orderService.saveOrder(orderEntity);
 

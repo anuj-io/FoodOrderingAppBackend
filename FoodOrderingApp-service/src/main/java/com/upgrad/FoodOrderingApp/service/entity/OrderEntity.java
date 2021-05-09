@@ -31,7 +31,6 @@ public class OrderEntity implements Serializable {
     private BigDecimal bill;
 
     @Column(name = "discount")
-    @NotNull
     private BigDecimal discount;
 
     @Column(name = "date")
