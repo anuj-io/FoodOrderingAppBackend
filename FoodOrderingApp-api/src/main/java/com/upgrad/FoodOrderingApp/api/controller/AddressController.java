@@ -71,6 +71,10 @@ public class AddressController {
         CustomerEntity customerEntity = customerService.getCustomer(accessToken);
         StateEntity stateEntity = addressService.getStateByUUID(saveAddressRequest.getStateUuid());
 
+        if(saveAddressRequest.getPincode().length() > 0 && !utilityProvider.isPincodeValid(saveAddressRequest.getPincode())) {
+            throw new SaveAddressException("SAR-002", "Invalid pincode");
+        }
+
         AddressEntity addressEntity = new AddressEntity();
         addressEntity.setCity(saveAddressRequest.getCity());
         addressEntity.setFlatBuilNo(saveAddressRequest.getFlatBuildingName());
