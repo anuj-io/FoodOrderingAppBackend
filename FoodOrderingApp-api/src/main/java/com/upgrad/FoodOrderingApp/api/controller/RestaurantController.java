@@ -72,7 +72,7 @@ public class RestaurantController {
 
             //Creating the RestaurantDetailsResponseAddressState for the RestaurantDetailsResponseAddress
             RestaurantDetailsResponseAddressState restaurantDetailsResponseAddressState = new RestaurantDetailsResponseAddressState()
-                    .id(UUID.fromString(restaurantEntity.getAddress().getState().getStateUuid()))
+                    .id(UUID.fromString(restaurantEntity.getAddress().getState().getUuid()))
                     .stateName(restaurantEntity.getAddress().getState().getStateName());
 
             //Creating the RestaurantDetailsResponseAddress for the RestaurantList
@@ -137,7 +137,7 @@ public class RestaurantController {
 
                 //Creating the RestaurantDetailsResponseAddressState for the RestaurantDetailsResponseAddress
                 RestaurantDetailsResponseAddressState restaurantDetailsResponseAddressState = new RestaurantDetailsResponseAddressState()
-                        .id(UUID.fromString(restaurantEntity.getAddress().getState().getStateUuid()))
+                        .id(UUID.fromString(restaurantEntity.getAddress().getState().getUuid()))
                         .stateName(restaurantEntity.getAddress().getState().getStateName());
 
                 //Creating the RestaurantDetailsResponseAddress for the RestaurantList
@@ -203,7 +203,7 @@ public class RestaurantController {
 
             //Creating the RestaurantDetailsResponseAddressState for the RestaurantDetailsResponseAddress
             RestaurantDetailsResponseAddressState restaurantDetailsResponseAddressState = new RestaurantDetailsResponseAddressState()
-                    .id(UUID.fromString(restaurantEntity.getAddress().getState().getStateUuid()))
+                    .id(UUID.fromString(restaurantEntity.getAddress().getState().getUuid()))
                     .stateName(restaurantEntity.getAddress().getState().getStateName());
 
             //Creating the RestaurantDetailsResponseAddress for the RestaurantList
@@ -281,7 +281,7 @@ public class RestaurantController {
 
         //Creating the RestaurantDetailsResponseAddressState for the RestaurantDetailsResponseAddress
         RestaurantDetailsResponseAddressState restaurantDetailsResponseAddressState = new RestaurantDetailsResponseAddressState()
-                .id(UUID.fromString(restaurantEntity.getAddress().getState().getStateUuid()))
+                .id(UUID.fromString(restaurantEntity.getAddress().getState().getUuid()))
                 .stateName(restaurantEntity.getAddress().getState().getStateName());
 
         //Creating the RestaurantDetailsResponseAddress for the RestaurantList

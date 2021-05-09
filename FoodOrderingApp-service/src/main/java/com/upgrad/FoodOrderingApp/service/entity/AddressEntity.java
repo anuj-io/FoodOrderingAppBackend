@@ -48,7 +48,6 @@ public class AddressEntity {
 
     @Column(name = "active")
     private Integer active;
-    private StateEntity state;
 
     @ManyToOne
     @JoinTable(name = "customer_address", joinColumns = @JoinColumn(name = "address_id"),

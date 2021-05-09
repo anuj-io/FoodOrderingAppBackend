@@ -55,6 +55,16 @@ public class AddressController {
         return  new ResponseEntity<StatesListResponse>(statesListResponse, HttpStatus.OK);
     }
 
+    /**
+     * Intakes all the fields required to form Address, constructs the entity and persists it.
+     * @param authorization
+     * @param saveAddressRequest
+     * @return
+     * @throws SaveAddressException
+     * @throws AuthenticationFailedException
+     * @throws AuthorizationFailedException
+     * @throws AddressNotFoundException
+     */
     @RequestMapping(method = RequestMethod.POST, path = "/address", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<SaveAddressResponse> saveAddress(@RequestHeader("authorization") final String authorization, @RequestBody(required = false) final SaveAddressRequest saveAddressRequest) throws SaveAddressException, AuthenticationFailedException, AuthorizationFailedException, AddressNotFoundException {
         String accessToken = authorization.split("Bearer ")[1];
@@ -67,6 +77,7 @@ public class AddressController {
         addressEntity.setLocality(saveAddressRequest.getLocality());
         addressEntity.setPincode(saveAddressRequest.getPincode());
         addressEntity.setActive(1);
+        addressEntity.setUuid(UUID.randomUUID().toString());
 
         addressEntity = addressService.saveAddress(addressEntity, stateEntity);
 
@@ -79,6 +90,13 @@ public class AddressController {
 
     }
 
+    /**
+     * Returns a list of all the addresses mapped to customer,
+     * customer is derived from auth token
+     * @param authorization
+     * @return
+     * @throws AuthorizationFailedException
+     */
     @RequestMapping(method = RequestMethod.GET, path = "/address/customer", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<AddressListResponse> getAllAddressForCustomer(@RequestHeader("authorization") final String authorization) throws AuthorizationFailedException {
         String accessToken = authorization.split("Bearer ")[1];
@@ -103,6 +121,16 @@ public class AddressController {
         return new ResponseEntity<AddressListResponse>(addressListResponse, HttpStatus.OK);
     }
 
+    /**
+     * Deletes an address corresponding to a ID,
+     * only if that address is mapped to customer derived from auth token
+     * @param authorization
+     * @param addressId
+     * @return
+     * @throws AuthorizationFailedException
+     * @throws AuthenticationFailedException
+     * @throws AddressNotFoundException
+     */
     @RequestMapping(method = RequestMethod.DELETE, path = "/address/{address_id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<DeleteAddressResponse> deleteAddress(@RequestHeader("authorization") final String authorization, @PathVariable(value = "address_id") final String addressId) throws AuthorizationFailedException, AuthenticationFailedException, AddressNotFoundException {
         String accessToken = authorization.split("Bearer ")[1];
