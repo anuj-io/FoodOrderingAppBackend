@@ -52,7 +52,7 @@ public class AddressService {
     public AddressEntity saveAddress(AddressEntity addressEntity, StateEntity stateEntity) throws SaveAddressException {
         if(addressEntity.getCity() == null || addressEntity.getFlatBuilNo() == null || addressEntity.getPincode() == null || addressEntity.getLocality() == null) {
             throw new SaveAddressException("SAR-001", "No field can be empty");
-        } else if(utilityProvider.isPincodeValid(addressEntity.getPincode())) {
+        } else if(!utilityProvider.isPincodeValid(addressEntity.getPincode())) {
             throw new SaveAddressException("SAR-002", "Invalid pincode");
         }
         addressEntity.setState(stateEntity);
