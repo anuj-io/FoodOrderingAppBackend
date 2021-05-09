@@ -24,7 +24,6 @@ public class StateEntity {
     @Column(name = "state_name")
     @Size(max = 30)
     private String stateName;
-    private String stateUuid;
 
     public String getUuid() {
         return uuid;
@@ -44,7 +43,4 @@ public class StateEntity {
     }
 
     public StateEntity() {}
-    public String getStateUuid() {
-        return stateUuid;
-    }
 }

@@ -63,7 +63,6 @@ public class RestaurantEntity {
     @JoinTable(name = "restaurant_item", joinColumns = @JoinColumn(name = "restaurant_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
 
-    private AddressEntity address;
     private List<ItemEntity> items = new ArrayList<>();
 
     public List<ItemEntity> getItems() {
